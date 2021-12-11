@@ -185,7 +185,7 @@ async def team_hero(ctx, argument_1, *, argument_2):
 async def help(ctx):
     emd = discord.Embed(title='Command navigation')
     emd.add_field(name='{}player'.format(os.environ['PREFIX']), value='Get player stats')
-    emd.add_field(name='{}record'.format(os.environ['PREFIX']), value='Get interesting record. You can choose for '
+    emd.add_field(name='{}record'.format(os.environ['PREFIX']), value='Get  interesting record. You can choose for '
                                                                       'each hero separately. Only possible: duration,'
                                                                       ' kills, deaths, assists.')
     emd.add_field(name='{}wl'.format(os.environ['PREFIX']), value='Get wl stats. You can choose for each hero '
@@ -196,7 +196,7 @@ async def help(ctx):
     emd.add_field(name='{}team'.format(os.environ['PREFIX']), value='Get team stats')
     emd.add_field(name='{}team_player'.format(os.environ['PREFIX']), value='Get information about the teams players')
     emd.add_field(name='{}team_hero'.format(os.environ['PREFIX']),
-                  value='Get wl stats on any hero that the team played')
+                  value='Get wl stats on any hero that the team playeed')
 
     await ctx.send(embed=emd)
 
