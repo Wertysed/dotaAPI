@@ -144,14 +144,14 @@ async def player(ctx, argument):
 async def record(ctx, argument_1, argument_2, *, argument_3):
     argument_1 = int(argument_1)
     argument_2 = str(argument_2)
-    output_information = ' '.join(DotaAPI.record_search(argument_1, argument_2, argument_3))
-    await ctx.send(output_information)
+    await ctx.send(DotaAPI.record_search(argument_1, argument_2, argument_3))
 
 
 @bot.command()
 async def wl(ctx, argument_1, *, argument_2):
     argument_1 = int(argument_1)
-    await ctx.send(DotaAPI.wl_of_player(argument_1, argument_2))
+    output_information = '/n'.join(DotaAPI.wl_of_player(argument_1, argument_2))
+    await ctx.send(output_information)
 
 
 @bot.command()
