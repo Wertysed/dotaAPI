@@ -139,49 +139,50 @@ class DotaAPI:
 
 
 @bot.command()
-async def player(ctx, argument):
+async def player(ctx, argument: str):
     argument = int(argument)
     await ctx.send(DotaAPI.stats_of_player(argument))
 
 
 @bot.command()
-async def record(ctx, argument_1, argument_2, *, argument_3):
-    print(type(argument_1, argument_2, argument_3))
+async def record(ctx, argument_1: str, argument_2: str, *, argument_3: str):
+    print(type(argument_3))
+    print(argument_3)
     argument_1 = int(argument_1)
     argument_2 = str(argument_2)
     await ctx.send(DotaAPI.record_search(argument_1, argument_2, argument_3))
 
 
 @bot.command()
-async def wl(ctx, argument_1, *, argument_2):
+async def wl(ctx, argument_1: str, *, argument_2: str):
     argument_1 = int(argument_1)
     await ctx.send(DotaAPI.wl_of_player(argument_1, argument_2))
 
 
 @bot.command()
-async def friends(ctx, argument):
+async def friends(ctx, argument: str):
     argument = int(argument)
     await ctx.send(DotaAPI.stats_with_peers(argument))
 
 
 @bot.command()
-async def wordcloud(ctx, argument_1, *, argument_2):
+async def wordcloud(ctx, argument_1: str, *, argument_2: str):
     argument_1 = int(argument_1)
     await ctx.send(DotaAPI.stats_of_word(argument_1, argument_2))
 
 
 @bot.command()
-async def team(ctx, *, argument):
+async def team(ctx, *, argument: str):
     await ctx.send(DotaAPI.stats_of_team(argument))
 
 
 @bot.command()
-async def team_player(ctx, *, argument):
+async def team_player(ctx, *, argument: str):
     await ctx.send(DotaAPI.stats_of_all_team_players(argument))
 
 
 @bot.command()
-async def team_hero(ctx, argument_1, *, argument_2):
+async def team_hero(ctx, argument_1: str, *, argument_2: str):
     argument_1 = argument_1.replace('_', ' ')
     await ctx.send(DotaAPI.stats_of_all_team_hero(argument_1, argument_2))
 
