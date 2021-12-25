@@ -7,11 +7,15 @@ bot = commands.Bot(command_prefix=os.environ['PREFIX'])
 bot.remove_command('help')
 
 
+class DotaError(Exception):
+    pass
+
+
 class DotaAPI:
     BASE_URL: str = 'https://api.opendota.com/api/'
 
     @classmethod
-    def record_search(cls, id_of_player, name_of_discipline: str, name_of_hero: str):
+    def record_search(cls, id_of_player: int, name_of_discipline: str, name_of_hero: str):
         max_discipline = 0
         url = f'{cls.BASE_URL}players/{id_of_player}/matches'
         matches = requests.get(url).json()
@@ -40,7 +44,7 @@ class DotaAPI:
             value += 1
 
     @classmethod
-    def search_id_of_hero(cls, name_of_hero):
+    def search_id_of_hero(cls, name_of_hero: str):
         url = f'{cls.BASE_URL}heroes'
         abobus_of_heros = requests.get(url).json()
         for i in abobus_of_heros:
@@ -48,7 +52,7 @@ class DotaAPI:
                 return i['id']
 
     @classmethod
-    def information_output(cls, request_api, way):
+    def information_output(cls, request_api, way: int):
         inf = []
         if way == 1:  # словарь в списке
             for i in request_api:
@@ -68,7 +72,7 @@ class DotaAPI:
         return '\n'.join(inf)
 
     @classmethod
-    def stats_of_player(cls, id_of_player):
+    def stats_of_player(cls, id_of_player: int):
         url = f'{cls.BASE_URL}players/{id_of_player}'
         abobus = requests.get(url).json()
         return cls.information_output(abobus, 2)
@@ -86,13 +90,13 @@ class DotaAPI:
             return cls.information_output(abobus_new, 2)
 
     @classmethod
-    def stats_with_peers(cls, id_of_player):
+    def stats_with_peers(cls, id_of_player: int):
         url = f'{cls.BASE_URL}players/{id_of_player}/peers'
         abobus = requests.get(url).json()
         return cls.information_output(abobus, 1)
 
     @classmethod
-    def stats_of_word(cls, id_of_player, name_of_hero):
+    def stats_of_word(cls, id_of_player: int, name_of_hero: str):
         url = f'{cls.BASE_URL}players/{id_of_player}/wordcloud'
         abobus = requests.get(url).json()
         if name_of_hero == 'all':
@@ -104,14 +108,14 @@ class DotaAPI:
             return cls.information_output(abobus_new, 2)
 
     @classmethod
-    def stats_of_team(cls, name_of_team):
+    def stats_of_team(cls, name_of_team: str):
         id_of_team = cls.search_id_of_team(name_of_team)
         url = f'{cls.BASE_URL}teams/{id_of_team}'
         abobus = requests.get(url).json()
         return cls.information_output(abobus, 2)
 
     @classmethod
-    def stats_of_all_team_players(cls, name_of_team):
+    def stats_of_all_team_players(cls, name_of_team: str):
         id_of_team = cls.search_id_of_team(name_of_team)
         url = f'{cls.BASE_URL}teams/{id_of_team}/players'
         abobus = requests.get(url).json()
@@ -124,7 +128,7 @@ class DotaAPI:
         return '\n'.join(inf)
 
     @classmethod
-    def stats_of_all_team_hero(cls, name_of_team, name_of_hero):
+    def stats_of_all_team_hero(cls, name_of_team: str, name_of_hero: str):
         id_of_team = cls.search_id_of_team(name_of_team)
         id_of_hero = cls.search_id_of_hero(name_of_hero)
         url = f'{cls.BASE_URL}teams/{id_of_team}/heroes'
@@ -142,6 +146,7 @@ async def player(ctx, argument):
 
 @bot.command()
 async def record(ctx, argument_1, argument_2, *, argument_3):
+    print(type(argument_1, argument_2, argument_3))
     argument_1 = int(argument_1)
     argument_2 = str(argument_2)
     await ctx.send(DotaAPI.record_search(argument_1, argument_2, argument_3))
