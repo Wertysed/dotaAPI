@@ -65,7 +65,7 @@ class DotaAPI:
                 else:
                     pre_inf = f'{key} : {value}'
                     inf.append(pre_inf)
-        return inf
+        return '\n'.join(inf)
 
     @classmethod
     def stats_of_player(cls, id_of_player):
@@ -150,8 +150,7 @@ async def record(ctx, argument_1, argument_2, *, argument_3):
 @bot.command()
 async def wl(ctx, argument_1, *, argument_2):
     argument_1 = int(argument_1)
-    output_information = '/n'.join(DotaAPI.wl_of_player(argument_1, argument_2))
-    await ctx.send(output_information)
+    await ctx.send(DotaAPI.wl_of_player(argument_1, argument_2))
 
 
 @bot.command()
